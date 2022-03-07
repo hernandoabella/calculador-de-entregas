@@ -1,0 +1,84 @@
+<!-- Created by Mohamed-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EDD calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: aliceblue;
+            width: 400px;
+            height: 600px;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            margin: auto;
+        }
+        
+        h2 {
+            font-size: 1.5em;
+        }
+        
+        input[type=date] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+        
+        #button1 {
+            padding: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color:#ffffff;
+            border:4px solid #bebebe;
+            border-radius: 30px;
+            background-color:#123456;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.j0s"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+
+</head>
+
+<body>
+    <h2><abbr title="Estimated Date of Delivery">EDD</abbr> Calculator</h2>
+    <form>
+        <label>Current date: </label><br/>
+        <input type="date" id="date1" /><br />
+        <label>Last menstrual period: </label><br/>
+        <input type="date" id="date2" /><br />
+
+    </form>
+    <button id="button1" onclick="edd()">Calculate</button>
+    <p id="edate"> </p>
+    <p id="ga"></p>
+    <script>
+        document.querySelector("#date1").valueAsDate = new Date();
+
+        function edd() {
+
+            var ld = document.getElementById("date2").value;
+            var nw = Date.parse(ld);
+            var diff = 24235200000;
+            var newdate = nw + diff;
+            var ldate = new Date(newdate);
+            var lmdate = moment(ldate).format('LL');
+
+            document.getElementById("edate").innerHTML = ("The estimated date of delivery is on " + lmdate + ".");
+            var gd = document.getElementById("date1").value;
+            var ndate = Date.parse(gd);
+            var odate = Date.parse(ld);
+            var dif = ndate - odate;
+            var wk = Math.floor(dif / 604800000);
+            var dy = (dif / 86400000) % 7;
+            document.getElementById("ga").innerHTML = ("The gestational age is " + wk + " weeks and " + dy + " days.");
+
+        }
+    </script>
